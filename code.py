@@ -100,6 +100,38 @@ class LinkedList:
             index += 1
         return None  # Return None if the target index is out of range
 
+    def set(self,index,value):
+        current = self.head
+        ind_counter = 0
+        while current:
+            if ind_counter == index:
+                current.value = value
+                return
+            current = current.next
+            ind_counter += 1
+        print("Index out of bounds")
+
+    def insert(self,value,position):
+        index_counter = 0
+        current = self.head
+        new_node = ListNode(value)
+        if position == 0:
+            # Insert at the beginning
+            new_node.next = self.head
+            self.head = new_node
+            return
+
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+        while current:
+            if index_counter == position - 1:
+                new_node.next = current.next
+                current.next = new_node
+                return
+            current = current.next
+            index_counter+=1
 # Example usage
 values = [1, 2, 3, 4]
 ll = LinkedList()
@@ -145,3 +177,16 @@ if value_at_index is not None:
     print(f"Value at index {target_index}: {value_at_index}")
 else:
     print(f"Index {target_index} is out of range.")
+
+print("\n")
+print("LL before manipulation")
+ll.print_linked_list()
+# Set value at a specific index (e.g., index 1 to value 200)
+ll.set(1, 200)
+print("List after setting value at index 2 to 9:")
+ll.print_linked_list()
+
+# Attempt to set value at an out-of-range index
+ll.set(10, 99)
+print("List after attempting to set value at out-of-range index 10:")
+ll.print_linked_list()
