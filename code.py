@@ -67,7 +67,65 @@ class LinkedList:
                 current.next = current.next.next
                 return
             current = current.next
+    def reverse(self):
+        curr = self.head
+        prev = None
+        while curr:
+            # a -> b -> c
+            next_node = curr.next   # next_node stores the next node
+            curr.next = prev        # pointing the value of current node to previous node
+            prev = curr             # updating prev pointer to the current node, so that in the next iteration prev points to this node as prev
+            curr = next_node        # updating curr pointer to the next node, so that in the next iteration curr points to the next node as curr
+        self.head = prev
 
+    def reverse1(self):
+        curr = self.head
+        prev = None
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+        self.head = prev
+    def rm_dupes_from_sorted_LL(self):
+        curr = self.head
+        while curr and curr.next:
+            if curr.value == curr.next.value:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+    def rm_dupes_unsorted(self):
+        curr = self.head
+        prev = None
+        dic = {}
+        while curr:
+            if curr.value in dic:
+                dic[curr.value] += 1
+                if prev:
+                    prev.next = curr.next
+                else:
+                    self.head = curr.next
+                # a -> b -> c -> d
+            else:
+                dic[curr.value] = 1
+                prev = curr
+            curr = curr.next
+    def findmiddle2(self):
+        slow=fast=self.head
+        while(fast and fast.next):
+            slow = slow.next
+            fast = fast.next.next
+        return slow.value
+    def findmiddle(self):
+        curr = self.head
+        count = 0
+        dic = {}
+        while curr:
+            dic[count] = curr.value
+            curr = curr.next
+            count += 1
+        return dic[count//2]
+       
     def pop_last_element(self):
         if not self.head:
             return
@@ -190,3 +248,21 @@ ll.print_linked_list()
 ll.set(10, 99)
 print("List after attempting to set value at out-of-range index 10:")
 ll.print_linked_list()
+
+
+'''
+
+ll = LinkedList()
+ll.head = ListNode(1)
+ll.head.next = ListNode(2)
+ll.head.next.next = ListNode(3)
+
+print("Original list:")
+ll.print_linked_list()
+
+ll.reverse()
+
+print("Reversed list:")
+ll.print_linked_list()
+
+'''
