@@ -190,6 +190,14 @@ class LinkedList:
                 return
             current = current.next
             index_counter+=1
+    def detectCycle(self):
+        fast = slow = self.head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if fast == slow:
+                return True
+        return False
 # Example usage
 values = [1, 2, 3, 4]
 ll = LinkedList()
